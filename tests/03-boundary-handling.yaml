@@ -1,0 +1,16 @@
+# Category: Boundary Handling
+# Tests that the bot properly declines off-topic requests and redirects to pharmacy domain
+
+- description: 'Boundary - off-topic weather'
+  vars:
+    message: 'Thời tiết hôm nay thế nào?'
+  assert:
+    - type: llm-rubric
+      value: 'Response politely declines the weather question and redirects to pharmacy/health topics. Should not attempt to answer about weather.'
+
+- description: 'Boundary - off-topic cooking'
+  vars:
+    message: 'Cho tôi công thức nấu phở'
+  assert:
+    - type: llm-rubric
+      value: 'Response politely explains it cannot help with cooking recipes and redirects to its pharmacy/health domain.'

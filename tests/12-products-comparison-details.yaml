@@ -1,0 +1,23 @@
+# Category: Products - Comparison & Details
+# Tests product comparison, availability checks, and usage instruction queries
+
+- description: 'Detail - fever medicine price comparison'
+  vars:
+    message: 'So sánh giá thuốc hạ sốt cho tôi, loại nào rẻ nhất?'
+  assert:
+    - type: llm-rubric
+      value: 'Response compares fever-reducing products with pricing or asks clarifying questions about preferences. Should provide useful comparison data from Pharmacity catalog.'
+
+- description: 'Detail - product availability (Ensure milk)'
+  vars:
+    message: 'Pharmacity có bán sữa Ensure cho người già không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses the product availability question for Ensure nutritional milk. Should either confirm availability with details or explain it is not in the catalog.'
+
+- description: 'Detail - eye drop usage instructions'
+  vars:
+    message: 'Cách sử dụng thuốc nhỏ mắt đúng cách?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides helpful guidance on eye drop usage or asks which specific product the user is asking about. Should be medically accurate and practical.'

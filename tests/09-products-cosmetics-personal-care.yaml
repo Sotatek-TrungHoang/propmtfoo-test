@@ -1,0 +1,16 @@
+# Category: Products - Cosmetics & Personal Care (Category A)
+# Tests product queries for sunscreen, skincare, and beauty products
+
+- description: 'Cosmetic - sunscreen for oily skin'
+  vars:
+    message: 'Tư vấn giúp tôi kem chống nắng phù hợp cho da dầu'
+  assert:
+    - type: llm-rubric
+      value: 'Response is helpful for a sunscreen inquiry for oily skin. PASS if it either: (a) recommends specific products, OR (b) provides general guidance on choosing sunscreen for oily skin (gel texture, SPF level, oil-free). Does not need to mention specific Pharmacity products.'
+
+- description: 'Cosmetic - acne skincare'
+  vars:
+    message: 'Da tôi hay bị mụn, có sản phẩm chăm sóc da nào phù hợp?'
+  assert:
+    - type: llm-rubric
+      value: 'Response is helpful for an acne skincare inquiry. PASS if it either: (a) suggests specific skincare products, OR (b) asks clarifying questions about skin type/severity/current routine before recommending. Both approaches are valid.'

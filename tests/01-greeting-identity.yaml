@@ -1,0 +1,27 @@
+# Category: Greeting & Identity
+# Tests basic greeting behavior and bot self-identification
+
+- description: 'Greeting - Vietnamese'
+  vars:
+    message: 'Xin chào'
+  assert:
+    - type: contains-any
+      value: ['chào', 'giúp', 'hỗ trợ']
+    - type: llm-rubric
+      value: 'Response is a polite Vietnamese greeting and offers help. Should be friendly and professional.'
+
+- description: 'Greeting - English'
+  vars:
+    message: 'Hello'
+  assert:
+    - type: llm-rubric
+      value: 'Response greets the user and offers assistance. Can be in Vietnamese since this is a Vietnamese pharmacy assistant.'
+
+- description: 'Identity - who are you'
+  vars:
+    message: 'Bạn là ai?'
+  assert:
+    - type: contains-any
+      value: ['Pharmacity', 'trợ lý', 'dược phẩm', 'sức khỏe']
+    - type: llm-rubric
+      value: 'Response identifies itself as Pharmacity virtual assistant that helps with pharmaceutical products, supplements, and health products.'

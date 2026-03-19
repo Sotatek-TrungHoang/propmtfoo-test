@@ -1,0 +1,9 @@
+# Category: Language Handling
+# Tests bot behavior when users communicate in different languages
+
+- description: 'Language - English request'
+  vars:
+    message: 'Can you speak English?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses the language question. Acceptable answers: responds in Vietnamese explaining it only supports Vietnamese, OR responds in English. Either way should be helpful.'

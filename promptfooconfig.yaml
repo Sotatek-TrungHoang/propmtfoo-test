@@ -1,0 +1,44 @@
+# Promptfoo config for testing SotaAgents Pharmacity AI chatbot
+# Docs: https://www.promptfoo.dev/docs/configuration/guide/
+#
+# Structure:
+#   promptfooconfig.yaml    - Main config (providers, grading, test imports)
+#   providers/              - Custom API providers
+#   tests/                  - Test cases split by category
+#     01-greeting-identity.yaml
+#     02-core-capabilities.yaml
+#     03-boundary-handling.yaml
+#     04-prompt-injection.yaml
+#     05-language-handling.yaml
+#     06-edge-cases.yaml
+#     07-products-otc-medicines.yaml
+#     08-products-supplements.yaml
+#     09-products-cosmetics-personal-care.yaml
+#     10-products-medical-devices.yaml
+#     11-products-prescription-boundary.yaml
+#     12-products-comparison-details.yaml
+
+description: 'SotaAgents Pharmacity AI Assistant Evaluation'
+
+dotenv: .env
+
+providers:
+  - id: 'file://providers/sotaagents-provider.js'
+    label: 'Pharmacity Chatbot'
+
+prompts:
+  - '{{message}}'
+
+# Grading provider (OpenAI-compatible)
+defaultTest:
+  options:
+    timeout: 30000
+    provider:
+      id: 'openai:chat:claude-sonnet-4.6'
+      config:
+        apiHost: 'aisieure.com'
+        apiKey: '{{env.OPENAI_API_COMPATIBLE_KEY}}'
+
+# Import all test files from tests/ directory (ordered by filename prefix)
+tests:
+  - file://tests/*.yaml

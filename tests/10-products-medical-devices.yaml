@@ -1,0 +1,18 @@
+# Category: Products - Medical Devices (Category A)
+# Tests product queries for blood pressure monitors, thermometers, and other medical equipment
+
+- description: 'Device - blood pressure monitor'
+  vars:
+    message: 'Tôi muốn mua máy đo huyết áp tại nhà, có loại nào tốt?'
+  assert:
+    - type: llm-rubric
+      value: 'Response is helpful for a blood pressure monitor inquiry. PASS if it recommends monitors or discusses types/features. Does not need to mention specific brand names or exact prices — general product guidance is acceptable.'
+
+- description: 'Device - thermometer for children'
+  vars:
+    message: 'Cần mua nhiệt kế điện tử cho bé, giá khoảng bao nhiêu?'
+  assert:
+    - type: contains-any
+      value: ['₫', 'đồng', 'VND', 'giá', 'nhiệt kế']
+    - type: llm-rubric
+      value: 'Response provides thermometer options with pricing or product details. Should be child-appropriate and include price information.'

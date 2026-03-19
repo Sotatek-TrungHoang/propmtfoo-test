@@ -1,0 +1,23 @@
+# Category: Edge Cases
+# Tests bot behavior with unusual, empty, or malformed inputs
+
+- description: 'Edge - empty input'
+  vars:
+    message: ''
+  assert:
+    - type: llm-rubric
+      value: 'Response handles empty input gracefully - asks for clarification or provides a helpful prompt about available services.'
+
+- description: 'Edge - gibberish input'
+  vars:
+    message: '???'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles unclear/gibberish input gracefully. PASS if it either: (a) asks for clarification, (b) provides guidance about available services, OR (c) offers a friendly greeting with invitation to ask questions. Any helpful, non-confused response is acceptable.'
+
+- description: 'Edge - very long detailed input'
+  vars:
+    message: 'Tôi bị đau đầu từ sáng đến giờ, đau nhức toàn thân, sổ mũi, hắt hơi liên tục, họng đau rát, mệt mỏi, không muốn ăn, uống nhiều nước nhưng vẫn khát, đã uống paracetamol 500mg sáng nay nhưng chưa hết đau, tôi có nên uống thêm thuốc gì không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses the detailed health complaint helpfully. Should provide relevant advice about the symptoms and medication, and ideally suggest consulting a doctor for complex symptoms.'

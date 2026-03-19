@@ -1,0 +1,23 @@
+# Category: Core Capabilities
+# Tests the bot's ability to describe its capabilities and handle basic pharmacy queries
+
+- description: 'Capabilities - list what bot can do'
+  vars:
+    message: 'Bạn có thể giúp tôi những gì?'
+  assert:
+    - type: llm-rubric
+      value: 'Response describes capabilities related to pharmacy products, health consultation, product search at Pharmacity. Should mention product categories.'
+
+- description: 'Capabilities - headache medicine inquiry'
+  vars:
+    message: 'Tôi bị đau đầu, có thuốc gì phù hợp không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides helpful information about headache medicine or asks clarifying questions about symptoms. Should be relevant to pharmacy products.'
+
+- description: 'Capabilities - vitamin C supplement inquiry'
+  vars:
+    message: 'Cho tôi xem thực phẩm chức năng bổ sung vitamin C'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides information about vitamin C supplements available or asks relevant follow-up questions. Should stay within pharmacy domain.'
