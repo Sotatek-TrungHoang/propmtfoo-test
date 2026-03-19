@@ -1,16 +1,90 @@
 # Category: Products - Cosmetics & Personal Care (Category A)
-# Tests product queries for sunscreen, skincare, and beauty products
+# Tests for skincare, sunscreen, personal hygiene, and baby care products
 
+# --- Skincare ---
 - description: 'Cosmetic - sunscreen for oily skin'
   vars:
     message: 'Tư vấn giúp tôi kem chống nắng phù hợp cho da dầu'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for a sunscreen inquiry for oily skin. PASS if it either: (a) recommends specific products, OR (b) provides general guidance on choosing sunscreen for oily skin (gel texture, SPF level, oil-free). Does not need to mention specific Pharmacity products.'
+      value: 'PASS if it recommends products OR provides guidance on choosing sunscreen for oily skin (gel texture, SPF, oil-free).'
 
 - description: 'Cosmetic - acne skincare'
   vars:
     message: 'Da tôi hay bị mụn, có sản phẩm chăm sóc da nào phù hợp?'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for an acne skincare inquiry. PASS if it either: (a) suggests specific skincare products, OR (b) asks clarifying questions about skin type/severity/current routine before recommending. Both approaches are valid.'
+      value: 'PASS if it suggests skincare products OR asks about skin type/severity. Both are valid.'
+
+- description: 'Cosmetic - sensitive skin cleanser'
+  vars:
+    message: 'Sữa rửa mặt cho da nhạy cảm'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends gentle products for sensitive skin.'
+
+- description: 'Cosmetic - winter moisturizer'
+  vars:
+    message: 'Kem dưỡng ẩm cho da khô mùa đông'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends moisturizers for dry skin.'
+
+- description: 'Cosmetic - acne scar treatment'
+  vars:
+    message: 'Kem trị sẹo mụn hiệu quả'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends scar treatment products.'
+
+# --- Hair Care ---
+- description: 'Cosmetic - anti-dandruff shampoo'
+  vars:
+    message: 'Dầu gội trị gàu loại nào tốt?'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends anti-dandruff products.'
+
+- description: 'Cosmetic - hair loss treatment'
+  vars:
+    message: 'Sản phẩm chống rụng tóc'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends available hair loss products.'
+
+# --- Oral & Personal Hygiene ---
+- description: 'Cosmetic - SPF lip balm'
+  vars:
+    message: 'Son dưỡng môi có SPF'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends lip products with sun protection.'
+
+- description: 'Cosmetic - hand sanitizer'
+  vars:
+    message: 'Nước rửa tay khô diệt khuẩn'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends hand sanitizers.'
+
+- description: 'Cosmetic - electric toothbrush'
+  vars:
+    message: 'Bàn chải đánh răng điện có bán không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses availability.'
+
+- description: 'Cosmetic - feminine hygiene'
+  vars:
+    message: 'Dung dịch vệ sinh phụ nữ loại nào tốt?'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends products professionally.'
+
+# --- Baby Care ---
+- description: 'Cosmetic - baby diapers'
+  vars:
+    message: 'Có bán tã bỉm cho bé không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses diaper availability.'

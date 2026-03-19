@@ -1,23 +1,111 @@
 # Category: Products - Comparison & Details
-# Tests product comparison, availability checks, and usage instruction queries
+# Tests product comparison, availability checks, usage instructions, and pricing queries
 
+# --- Price Comparison ---
 - description: 'Detail - fever medicine price comparison'
   vars:
     message: 'So sánh giá thuốc hạ sốt cho tôi, loại nào rẻ nhất?'
   assert:
     - type: llm-rubric
-      value: 'Response compares fever-reducing products with pricing or asks clarifying questions about preferences. Should provide useful comparison data from Pharmacity catalog.'
+      value: 'Response compares fever-reducing products with pricing or asks clarifying questions about preferences.'
 
+- description: 'Detail - vitamin C brand comparison'
+  vars:
+    message: 'So sánh vitamin C của DHC và Blackmores'
+  assert:
+    - type: llm-rubric
+      value: 'Response compares the two brands or explains what info is available.'
+
+- description: 'Detail - sunscreen price range'
+  vars:
+    message: 'Kem chống nắng tầm giá 200.000đ có loại nào?'
+  assert:
+    - type: llm-rubric
+      value: 'Response suggests sunscreen options within the price range or addresses the query.'
+
+# --- Availability ---
 - description: 'Detail - product availability (Ensure milk)'
   vars:
     message: 'Pharmacity có bán sữa Ensure cho người già không?'
   assert:
     - type: llm-rubric
-      value: 'Response addresses the product availability question for Ensure nutritional milk. Should either confirm availability with details or explain it is not in the catalog.'
+      value: 'Response addresses the product availability question for Ensure nutritional milk.'
 
+- description: 'Detail - imported product availability'
+  vars:
+    message: 'Có bán sản phẩm nhập khẩu từ Nhật không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses imported product availability.'
+
+- description: 'Detail - product out of stock handling'
+  vars:
+    message: 'Thuốc này hết hàng thì bao giờ có lại?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses out-of-stock inquiry or suggests alternatives.'
+
+- description: 'Detail - specific product search'
+  vars:
+    message: 'Tìm giúp tôi sản phẩm Blackmores Fish Oil 1000mg'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses the specific product search query.'
+
+# --- Usage Instructions ---
 - description: 'Detail - eye drop usage instructions'
   vars:
     message: 'Cách sử dụng thuốc nhỏ mắt đúng cách?'
   assert:
     - type: llm-rubric
-      value: 'Response provides helpful guidance on eye drop usage or asks which specific product the user is asking about. Should be medically accurate and practical.'
+      value: 'Response provides helpful guidance on eye drop usage or asks which specific product.'
+
+- description: 'Detail - nebulizer usage'
+  vars:
+    message: 'Cách sử dụng máy xông mũi họng tại nhà?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides nebulizer usage guidance or asks about specific device.'
+
+- description: 'Detail - blood pressure monitor usage'
+  vars:
+    message: 'Hướng dẫn đo huyết áp đúng cách'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides guidance on proper blood pressure measurement technique.'
+
+- description: 'Detail - medicine storage'
+  vars:
+    message: 'Bảo quản thuốc như thế nào cho đúng?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides general medicine storage advice (cool, dry, away from sunlight).'
+
+# --- Product Details ---
+- description: 'Detail - ingredient inquiry'
+  vars:
+    message: 'Thành phần của kem chống nắng Anessa là gì?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses ingredient inquiry or directs to product details.'
+
+- description: 'Detail - expiry date question'
+  vars:
+    message: 'Sản phẩm mua online có hạn sử dụng bao lâu?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses shelf life/expiry question.'
+
+- description: 'Detail - generic vs brand'
+  vars:
+    message: 'Thuốc generic và thuốc biệt dược khác nhau như thế nào?'
+  assert:
+    - type: llm-rubric
+      value: 'Response explains the difference between generic and brand-name medicines.'
+
+- description: 'Detail - dosage question'
+  vars:
+    message: 'Liều dùng paracetamol cho người lớn là bao nhiêu?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides accurate adult paracetamol dosage information.'

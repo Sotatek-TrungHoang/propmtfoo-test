@@ -1,23 +1,97 @@
 # Category: Products - Supplements (Category A)
-# Tests product queries for vitamins, probiotics, calcium, and nutritional supplements
+# Tests for vitamins, minerals, probiotics, and nutritional supplements
 
+# --- Vitamins & Minerals ---
 - description: 'Supplement - multivitamins for elderly'
   vars:
     message: 'Tôi muốn mua vitamin tổng hợp cho người lớn tuổi'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for a multivitamin inquiry for elderly. PASS if it either: (a) recommends specific products, OR (b) asks clarifying questions (gender, age, health conditions) to provide a better recommendation. Both approaches are valid.'
+      value: 'PASS if it recommends specific products OR asks clarifying questions (gender, age, conditions). Both are valid.'
 
-- description: 'Supplement - probiotics'
+- description: 'Supplement - vitamin D3 timing'
+  vars:
+    message: 'Vitamin D3 uống lúc nào tốt nhất?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides timing advice (with meals/fat).'
+
+- description: 'Supplement - iron and calcium interaction'
+  vars:
+    message: 'Uống sắt và canxi cùng lúc được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response advises separating iron and calcium intake.'
+
+- description: 'Supplement - vegetarian needs'
+  vars:
+    message: 'Tôi ăn chay, cần bổ sung vitamin gì?'
+  assert:
+    - type: llm-rubric
+      value: 'Response mentions relevant supplements like B12, iron, zinc.'
+
+- description: 'Supplement - infant vitamins'
+  vars:
+    message: 'Bé 1 tuổi cần bổ sung vitamin gì?'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends age-appropriate vitamins, cautions about dosing.'
+
+# --- Probiotics ---
+- description: 'Supplement - probiotics general'
   vars:
     message: 'Có men vi sinh nào tốt cho hệ tiêu hóa không?'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for a probiotic inquiry. PASS if it either: (a) suggests specific probiotic products or general probiotic types, OR (b) asks about digestive concerns. Does not need to mention Pharmacity by name — general probiotic guidance is acceptable.'
+      value: 'PASS if it suggests probiotic products or general probiotic types. General probiotic guidance is acceptable.'
 
+- description: 'Supplement - probiotics for picky eater child'
+  vars:
+    message: 'Men vi sinh cho trẻ biếng ăn'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends child probiotics, may ask child age.'
+
+# --- Calcium & Bone Health ---
 - description: 'Supplement - calcium for osteoporosis'
   vars:
     message: 'Mẹ tôi bị loãng xương, cần bổ sung canxi. Có sản phẩm nào?'
   assert:
     - type: llm-rubric
-      value: 'Response recommends calcium supplements for osteoporosis or asks clarifying questions. Should provide specific products and may advise consulting a doctor.'
+      value: 'Response recommends calcium supplements or asks clarifying questions. May advise consulting a doctor.'
+
+# --- Specialty Supplements ---
+- description: 'Supplement - omega-3 heart health'
+  vars:
+    message: 'Omega-3 loại nào tốt nhất cho tim mạch?'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends omega-3 products or provides guidance.'
+
+- description: 'Supplement - prenatal supplements'
+  vars:
+    message: 'Bà bầu cần bổ sung những gì?'
+  assert:
+    - type: llm-rubric
+      value: 'Response mentions folic acid, iron, calcium, DHA or similar prenatal supplements.'
+
+- description: 'Supplement - collagen effectiveness'
+  vars:
+    message: 'Collagen uống có thực sự tốt cho da không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides balanced, evidence-based response.'
+
+- description: 'Supplement - whey protein availability'
+  vars:
+    message: 'Whey protein có bán ở Pharmacity không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses availability question.'
+
+- description: 'Supplement - vitamin C and COVID'
+  vars:
+    message: 'Uống vitamin C liều cao có trị được COVID không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response does not confirm false claim, provides factual info about vitamin C and immune support.'

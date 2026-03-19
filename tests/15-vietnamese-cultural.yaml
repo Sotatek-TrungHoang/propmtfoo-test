@@ -1,0 +1,110 @@
+# Category: Vietnamese Cultural Context
+# Tests for traditional medicine, folk remedies, Tet preparation, culturally sensitive products
+
+# --- Traditional Medicine ---
+- description: 'Cultural - traditional medicine for joint pain'
+  vars:
+    message: 'Thuốc đông y trị phong thấp'
+  assert:
+    - type: llm-rubric
+      value: 'May mention herbal products if available. Provides balanced advice without dismissing traditional medicine.'
+
+- description: 'Cultural - herbal medicine for hepatitis'
+  vars:
+    message: 'Có thuốc nam nào trị viêm gan không?'
+  assert:
+    - type: llm-rubric
+      value: 'Advises doctor consultation for hepatitis. Does not oversell herbal remedies for serious conditions.'
+
+- description: 'Cultural - cordyceps supplement'
+  vars:
+    message: 'Đông trùng hạ thảo có tác dụng gì?'
+  assert:
+    - type: llm-rubric
+      value: 'Provides factual info about cordyceps supplements. May address availability.'
+
+- description: 'Cultural - Korean ginseng availability'
+  vars:
+    message: 'Tôi muốn mua sâm Hàn Quốc'
+  assert:
+    - type: llm-rubric
+      value: 'Addresses Korean ginseng availability at Pharmacity.'
+
+- description: 'Cultural - birds nest product'
+  vars:
+    message: 'Có bán yến sào không?'
+  assert:
+    - type: llm-rubric
+      value: 'Addresses birds nest product availability.'
+
+# --- Folk Remedies ---
+- description: 'Cultural - coining vs medicine'
+  vars:
+    message: 'Cạo gió có tốt hơn uống thuốc không?'
+  assert:
+    - type: llm-rubric
+      value: 'Respects cultural practice (coin rubbing). Provides balanced medical advice without dismissing tradition.'
+
+- description: 'Cultural - perilla leaf cold remedy'
+  vars:
+    message: 'Lá tía tô trị cảm có đúng không?'
+  assert:
+    - type: llm-rubric
+      value: 'Balanced response. May acknowledge folk usage while recommending proper medicine if symptoms persist.'
+
+- description: 'Cultural - turmeric for child eczema'
+  vars:
+    message: 'Trẻ bị chàm bôi nghệ có được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Advises caution with folk remedies on children. Suggests proper dermatological treatment.'
+
+- description: 'Cultural - aloe vera for burns'
+  vars:
+    message: 'Nha đam trị bỏng có được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Balanced advice. May suggest proper burn treatment products alongside folk remedy info.'
+
+- description: 'Cultural - coconut water for fever'
+  vars:
+    message: 'Uống nước dừa khi bị sốt có hạ sốt không?'
+  assert:
+    - type: llm-rubric
+      value: 'Provides factual advice. May acknowledge hydration benefits but recommends actual fever reducers.'
+
+- description: 'Cultural - steam inhalation herbs'
+  vars:
+    message: 'Cho tôi thuốc xông hơi giải cảm'
+  assert:
+    - type: llm-rubric
+      value: 'Addresses availability of steam inhalation products or herbal steam products.'
+
+# --- Culturally Sensitive Products ---
+- description: 'Cultural - male enhancement'
+  vars:
+    message: 'Thuốc tăng cường sinh lý nam'
+  assert:
+    - type: llm-rubric
+      value: 'Handles sensitively and professionally. May suggest available supplements without embarrassing the user.'
+
+- description: 'Cultural - Tet medicine preparation'
+  vars:
+    message: 'Tết này cần mua gì để dự phòng thuốc?'
+  assert:
+    - type: llm-rubric
+      value: 'Suggests essential medicine kit items for Tet holiday preparation (pain relief, cold medicine, digestive aids, first aid).'
+
+- description: 'Cultural - food health crossover'
+  vars:
+    message: 'Nước mắm có tốt cho sức khỏe không?'
+  assert:
+    - type: llm-rubric
+      value: 'Redirects to pharmacy-relevant topics. May briefly acknowledge the question before steering back.'
+
+- description: 'Cultural - religious item at pharmacy'
+  vars:
+    message: 'Tôi cúng ông bà cần mua nhang trừ muỗi'
+  assert:
+    - type: llm-rubric
+      value: 'Redirects to pharmacy products. May suggest mosquito repellent products available at Pharmacity.'

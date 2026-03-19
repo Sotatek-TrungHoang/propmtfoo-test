@@ -1,23 +1,177 @@
-# Category: Edge Cases
-# Tests bot behavior with unusual, empty, or malformed inputs
+# Category: Edge Cases & Malformed Input
+# Tests bot behavior with unusual, empty, malformed, or adversarial formatting
 
+# --- Empty & Minimal ---
 - description: 'Edge - empty input'
   vars:
     message: ''
   assert:
     - type: llm-rubric
-      value: 'Response handles empty input gracefully - asks for clarification or provides a helpful prompt about available services.'
+      value: 'Response handles empty input gracefully - asks for clarification or provides a helpful prompt.'
 
-- description: 'Edge - gibberish input'
+- description: 'Edge - single character'
+  vars:
+    message: 'a'
+  assert:
+    - type: llm-rubric
+      value: 'Response asks for clarification.'
+
+- description: 'Edge - whitespace only'
+  vars:
+    message: '    '
+  assert:
+    - type: llm-rubric
+      value: 'Response handles empty/whitespace gracefully.'
+
+- description: 'Edge - ellipsis only'
+  vars:
+    message: '...'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles gracefully, asks for clarification.'
+
+# --- Gibberish & Special Characters ---
+- description: 'Edge - gibberish question marks'
   vars:
     message: '???'
   assert:
     - type: llm-rubric
-      value: 'Response handles unclear/gibberish input gracefully. PASS if it either: (a) asks for clarification, (b) provides guidance about available services, OR (c) offers a friendly greeting with invitation to ask questions. Any helpful, non-confused response is acceptable.'
+      value: 'PASS if response asks for clarification, provides service guidance, or offers a friendly greeting. Any helpful response is acceptable.'
 
+- description: 'Edge - special characters only'
+  vars:
+    message: '!@#$%^&*()'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles gracefully.'
+
+- description: 'Edge - numbers only'
+  vars:
+    message: '123456789'
+  assert:
+    - type: llm-rubric
+      value: 'Response asks for clarification or interprets as product code.'
+
+- description: 'Edge - null string'
+  vars:
+    message: 'null'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles gracefully.'
+
+- description: 'Edge - undefined string'
+  vars:
+    message: 'undefined'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles gracefully.'
+
+- description: 'Edge - boolean string'
+  vars:
+    message: 'true'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles gracefully.'
+
+# --- Repetition & Excess ---
+- description: 'Edge - repeated word'
+  vars:
+    message: 'thuốc thuốc thuốc thuốc thuốc'
+  assert:
+    - type: llm-rubric
+      value: 'Response asks what specific medicine the user needs.'
+
+- description: 'Edge - repeated characters in word'
+  vars:
+    message: 'Thuốcccccccc'
+  assert:
+    - type: llm-rubric
+      value: 'Response attempts to understand or asks for clarification.'
+
+- description: 'Edge - triplicated sentence'
+  vars:
+    message: 'Tôi cần thuốc đau đầu Tôi cần thuốc đau đầu Tôi cần thuốc đau đầu'
+  assert:
+    - type: llm-rubric
+      value: 'Response responds once appropriately about headache medicine.'
+
+- description: 'Edge - excessive punctuation'
+  vars:
+    message: 'Thuốc đau đầu?????!!!!!!'
+  assert:
+    - type: llm-rubric
+      value: 'Response responds normally about headache medicine.'
+
+- description: 'Edge - excessive dots in message'
+  vars:
+    message: 'Tôi cần............ thuốc.............. đau đầu'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands intent, responds about headache medicine.'
+
+# --- Formatting Issues ---
+- description: 'Edge - spaced out characters'
+  vars:
+    message: 'T h u ố c  đ a u  đ ầ u'
+  assert:
+    - type: llm-rubric
+      value: 'Response attempts to parse or asks for clarification.'
+
+- description: 'Edge - HTML tags in input'
+  vars:
+    message: '<b>Thuốc đau đầu</b>'
+  assert:
+    - type: llm-rubric
+      value: 'Response parses intent despite HTML, responds about headache medicine.'
+
+- description: 'Edge - bracket placeholders'
+  vars:
+    message: 'Tôi cần thuốc [placeholder]'
+  assert:
+    - type: llm-rubric
+      value: 'Response asks for specific product or clarification.'
+
+# --- Multiple Items ---
+- description: 'Edge - multiple unrelated requests'
+  vars:
+    message: 'Thuốc đau đầu. Thuốc đau bụng. Vitamin C. Kem chống nắng. Máy đo huyết áp.'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses multiple topics or asks user to prioritize.'
+
+- description: 'Edge - multiple symptoms with plus notation'
+  vars:
+    message: 'Có thuốc gì cho ng bị đau đầu + đau bụng + sổ mũi + ho + sốt ko?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses multi-symptom query.'
+
+# --- Emoji ---
+- description: 'Edge - health emoji only'
+  vars:
+    message: '😀😷💊🏥'
+  assert:
+    - type: llm-rubric
+      value: 'Response attempts to interpret health emoji or asks for clarification.'
+
+# --- Very Long Input ---
 - description: 'Edge - very long detailed input'
   vars:
     message: 'Tôi bị đau đầu từ sáng đến giờ, đau nhức toàn thân, sổ mũi, hắt hơi liên tục, họng đau rát, mệt mỏi, không muốn ăn, uống nhiều nước nhưng vẫn khát, đã uống paracetamol 500mg sáng nay nhưng chưa hết đau, tôi có nên uống thêm thuốc gì không?'
   assert:
     - type: llm-rubric
-      value: 'Response addresses the detailed health complaint helpfully. Should provide relevant advice about the symptoms and medication, and ideally suggest consulting a doctor for complex symptoms.'
+      value: 'Response addresses the detailed health complaint helpfully. Should provide relevant advice and ideally suggest consulting a doctor for complex symptoms.'
+
+- description: 'Edge - very long repetitive input'
+  vars:
+    message: 'Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc Tôi cần thuốc'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles long repetitive input without crashing, asks what medicine is needed.'
+
+- description: 'Edge - newlines within message'
+  vars:
+    message: "Thuốc\nđau\nđầu\ngiá\nbao\nnhiêu"
+  assert:
+    - type: llm-rubric
+      value: 'Response parses correctly, responds about headache medicine price.'

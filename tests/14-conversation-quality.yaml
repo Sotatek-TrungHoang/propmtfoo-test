@@ -1,0 +1,149 @@
+# Category: Conversation Quality
+# Tests for gratitude, criticism, follow-ups, urgency, anxiety, folk remedies, farewell
+
+# --- Polite Interactions ---
+- description: 'Quality - gratitude response'
+  vars:
+    message: 'Cảm ơn bạn nhiều nha'
+  assert:
+    - type: llm-rubric
+      value: 'Responds politely to thank-you. May offer further assistance.'
+
+- description: 'Quality - compliment handling'
+  vars:
+    message: 'Bạn giỏi quá!'
+  assert:
+    - type: llm-rubric
+      value: 'Responds modestly and offers more help.'
+
+- description: 'Quality - farewell'
+  vars:
+    message: 'Tạm biệt'
+  assert:
+    - type: llm-rubric
+      value: 'Says goodbye politely. May invite user to return.'
+
+- description: 'Quality - farewell with thanks'
+  vars:
+    message: 'Cảm ơn, tôi hỏi vậy thôi, bye bye'
+  assert:
+    - type: llm-rubric
+      value: 'Responds warmly to farewell with gratitude.'
+
+# --- Criticism & Negative Feedback ---
+- description: 'Quality - handling criticism'
+  vars:
+    message: 'Bạn trả lời sai rồi'
+  assert:
+    - type: llm-rubric
+      value: 'Responds gracefully to criticism. Offers to correct or asks what was wrong.'
+
+- description: 'Quality - negative feedback'
+  vars:
+    message: 'Bạn tư vấn dở quá'
+  assert:
+    - type: llm-rubric
+      value: 'Responds professionally. Does not argue. Offers to improve or try again.'
+
+- description: 'Quality - frustrated repeated question'
+  vars:
+    message: 'Tôi đã hỏi rồi mà, thuốc đau đầu giá bao nhiêu?'
+  assert:
+    - type: llm-rubric
+      value: 'Responds helpfully without condescension. Provides headache medicine pricing.'
+
+# --- Clarification & Detail Requests ---
+- description: 'Quality - clarification request'
+  vars:
+    message: 'Tôi không hiểu, giải thích lại đi'
+  assert:
+    - type: llm-rubric
+      value: 'Rephrases or simplifies explanation. Does not repeat exact same response.'
+
+- description: 'Quality - brevity request'
+  vars:
+    message: 'Nói ngắn gọn thôi'
+  assert:
+    - type: llm-rubric
+      value: 'Responds concisely. Keeps answer short.'
+
+- description: 'Quality - detail request'
+  vars:
+    message: 'Giải thích chi tiết hơn được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Provides more detailed explanation than a typical response.'
+
+# --- Minimal / Ambiguous Input ---
+- description: 'Quality - minimal acknowledgment hmm'
+  vars:
+    message: 'Hmm'
+  assert:
+    - type: llm-rubric
+      value: 'Asks if user needs more help or offers assistance.'
+
+- description: 'Quality - minimal response ok'
+  vars:
+    message: 'Ok'
+  assert:
+    - type: llm-rubric
+      value: 'Asks if there is anything else to help with.'
+
+- description: 'Quality - laughter'
+  vars:
+    message: 'haha'
+  assert:
+    - type: llm-rubric
+      value: 'Responds naturally. May ask how to help.'
+
+# --- Complex Consultation ---
+- description: 'Quality - multi-condition elderly patient'
+  vars:
+    message: 'Tôi 70 tuổi, bị tiểu đường, huyết áp cao, và gout. Tư vấn thuốc bổ sung cho tôi.'
+  assert:
+    - type: llm-rubric
+      value: 'Addresses multiple conditions thoughtfully. Recommends doctor supervision due to complexity.'
+
+- description: 'Quality - vague side effects question'
+  vars:
+    message: 'Thuốc này có tác dụng phụ gì không?'
+  assert:
+    - type: llm-rubric
+      value: 'Asks which specific product user is asking about since no product was named.'
+
+- description: 'Quality - decision support with conflicting info'
+  vars:
+    message: 'Thuốc A hay thuốc B tốt hơn? Mà thuốc A rẻ hơn nhưng thuốc B có thương hiệu. Nhưng tôi nghe nói thuốc A hiệu quả hơn. Bạn nghĩ sao?'
+  assert:
+    - type: llm-rubric
+      value: 'Helps user weigh pros/cons without pushing one product unfairly.'
+
+# --- Urgency & Anxiety ---
+- description: 'Quality - urgency expression'
+  vars:
+    message: 'Tôi cần gấp, nhanh lên'
+  assert:
+    - type: llm-rubric
+      value: 'Responds promptly and helpfully. May ask what they need urgently.'
+
+- description: 'Quality - user anxiety about wrong medicine'
+  vars:
+    message: 'Bạn có chắc không? Tôi sợ uống sai thuốc'
+  assert:
+    - type: llm-rubric
+      value: 'Reassures user. Recommends professional consultation for certainty.'
+
+# --- Folk Remedies & Misinformation ---
+- description: 'Quality - folk remedy verification'
+  vars:
+    message: 'Mẹ tôi bảo uống nước chanh trị cảm, có đúng không?'
+  assert:
+    - type: llm-rubric
+      value: 'Addresses folk remedy claim factually. May acknowledge hydration benefits while recommending proper medicine.'
+
+- description: 'Quality - multi-symptom with plus notation'
+  vars:
+    message: 'Tôi bị đau đầu từ hôm qua, đau nửa đầu bên phải'
+  assert:
+    - type: llm-rubric
+      value: 'Asks relevant follow-up questions about severity, triggers, or frequency. May suggest OTC options or doctor visit for persistent one-sided headache.'

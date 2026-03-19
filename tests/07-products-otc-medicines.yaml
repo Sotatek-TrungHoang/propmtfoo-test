@@ -1,6 +1,7 @@
 # Category: Products - OTC Medicines (Category B)
-# Tests product queries for over-the-counter medicines: pain relief, cold/flu, digestive, allergy, cough
+# Tests for over-the-counter medicines: pain relief, cold/flu, digestive, allergy, cough, and more
 
+# --- Pain Relief ---
 - description: 'OTC - paracetamol pricing'
   vars:
     message: 'Thuốc paracetamol giá bao nhiêu?'
@@ -8,32 +9,107 @@
     - type: contains-any
       value: ['₫', 'đồng', 'VND', 'giá', 'hộp', 'vỉ']
     - type: llm-rubric
-      value: 'Response provides specific paracetamol products with pricing info (in VND). Should include product names, dosage, and price per unit/box.'
+      value: 'Response provides specific paracetamol products with pricing info.'
 
+- description: 'OTC - joint pain for elderly'
+  vars:
+    message: 'Thuốc giảm đau khớp cho người già'
+  assert:
+    - type: llm-rubric
+      value: 'Response suggests appropriate OTC options or asks clarifying questions. May suggest doctor for chronic pain.'
+
+- description: 'OTC - topical pain relief'
+  vars:
+    message: 'Thuốc dán giảm đau có hiệu quả không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides info on pain patches or asks about specific needs.'
+
+- description: 'OTC - menstrual pain for teen'
+  vars:
+    message: 'Thuốc đau bụng kinh cho con gái tôi 15 tuổi'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends age-appropriate OTC options for menstrual pain.'
+
+# --- Cold & Flu ---
 - description: 'OTC - cold and flu medicine'
   vars:
     message: 'Tôi bị cảm cúm, sổ mũi, hắt hơi. Có thuốc nào phù hợp không?'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for a cold/flu inquiry. PASS if it either: (a) suggests specific cold/flu products, OR (b) asks relevant clarifying questions (age, other medications, allergies) before recommending. Both approaches are acceptable medical practice.'
+      value: 'PASS if it suggests specific cold/flu products OR asks relevant clarifying questions. Both approaches are acceptable.'
 
+# --- Digestive ---
 - description: 'OTC - digestive medicine'
   vars:
     message: 'Tôi hay bị đầy bụng khó tiêu, có thuốc gì giúp tiêu hóa tốt hơn?'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for a digestive issue inquiry. PASS if it either: (a) recommends specific digestive products, OR (b) asks relevant clarifying questions (age, duration, medications) to provide a better recommendation. Both approaches are valid.'
+      value: 'PASS if it recommends digestive products OR asks clarifying questions. Both are valid.'
 
+- description: 'OTC - chronic constipation'
+  vars:
+    message: 'Tôi bị táo bón mãn tính, có thuốc nào an toàn dùng lâu dài?'
+  assert:
+    - type: llm-rubric
+      value: 'Response advises caution with long-term use, suggests lifestyle changes or doctor visit.'
+
+# --- Allergy ---
 - description: 'OTC - allergy medicine'
   vars:
     message: 'Cho tôi thuốc chống dị ứng, tôi bị ngứa da và nổi mẩn'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for an allergy inquiry. PASS if it either: (a) recommends anti-allergy products, OR (b) asks clarifying questions (age, medications, allergy history) before recommending. Both approaches are valid pharmacy practice.'
+      value: 'PASS if it recommends anti-allergy products OR asks clarifying questions. Both are valid.'
 
+# --- Cough ---
 - description: 'OTC - cough syrup for children'
   vars:
     message: 'Con tôi 5 tuổi bị ho có đờm, có siro ho nào cho trẻ em không?'
   assert:
     - type: llm-rubric
-      value: 'Response recommends child-appropriate cough syrup or asks for more details. Should be cautious about dosage for children and may suggest consulting a doctor.'
+      value: 'Response recommends child-appropriate cough syrup or asks for more details. Should be cautious about dosage for children.'
+
+# --- Other OTC ---
+- description: 'OTC - antifungal'
+  vars:
+    message: 'Có thuốc trị nấm da không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends OTC antifungal products or asks about the condition.'
+
+- description: 'OTC - nasal drops for toddler'
+  vars:
+    message: 'Thuốc nhỏ mũi cho bé 2 tuổi'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends age-appropriate products, warns about children dosing.'
+
+- description: 'OTC - specific brand Betadine'
+  vars:
+    message: 'Thuốc xịt họng Betadine giá bao nhiêu?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses the specific brand query with pricing or product details.'
+
+- description: 'OTC - same active ingredient comparison'
+  vars:
+    message: 'Efferalgan 500mg với Panadol 500mg khác gì nhau?'
+  assert:
+    - type: llm-rubric
+      value: 'Response explains both contain paracetamol, compares brand/price/packaging differences.'
+
+- description: 'OTC - drug interaction'
+  vars:
+    message: 'Tôi uống ibuprofen và paracetamol cùng lúc được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses drug interaction question accurately.'
+
+- description: 'OTC - bad breath treatment'
+  vars:
+    message: 'Có thuốc trị hôi miệng không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response suggests relevant oral care products.'

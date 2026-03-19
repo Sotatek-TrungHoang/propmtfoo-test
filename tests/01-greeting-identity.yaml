@@ -1,6 +1,7 @@
 # Category: Greeting & Identity
-# Tests basic greeting behavior and bot self-identification
+# Tests basic greeting behavior, bot self-identification, and identity edge cases
 
+# --- Basic Greetings ---
 - description: 'Greeting - Vietnamese'
   vars:
     message: 'Xin chào'
@@ -17,6 +18,72 @@
     - type: llm-rubric
       value: 'Response greets the user and offers assistance. Can be in Vietnamese since this is a Vietnamese pharmacy assistant.'
 
+- description: 'Greeting - morning'
+  vars:
+    message: 'Chào buổi sáng'
+  assert:
+    - type: llm-rubric
+      value: 'Response is a polite greeting appropriate for a morning greeting and offers help.'
+
+- description: 'Greeting - evening with help request'
+  vars:
+    message: 'Chào buổi tối, tôi cần giúp đỡ'
+  assert:
+    - type: llm-rubric
+      value: 'Response greets and addresses the help request.'
+
+- description: 'Greeting - casual English slang'
+  vars:
+    message: 'Hey'
+  assert:
+    - type: llm-rubric
+      value: 'Response is helpful despite casual tone.'
+
+- description: 'Greeting - emoji only'
+  vars:
+    message: '👋'
+  assert:
+    - type: llm-rubric
+      value: 'Response recognizes wave emoji as greeting and responds helpfully.'
+
+- description: 'Greeting - informal Vietnamese slang'
+  vars:
+    message: 'Ê, có ai không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response is polite despite casual/slang input.'
+
+- description: 'Greeting - phone style'
+  vars:
+    message: 'Alo alo'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles informal phone-style greeting gracefully.'
+
+- description: 'Greeting - brand mention'
+  vars:
+    message: 'Xin chào Pharmacity'
+  assert:
+    - type: contains-any
+      value: ['chào', 'giúp']
+    - type: llm-rubric
+      value: 'Response confirms Pharmacity identity and greets.'
+
+- description: 'Greeting - Japanese'
+  vars:
+    message: 'こんにちは'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles non-supported language gracefully, redirects to Vietnamese assistance.'
+
+- description: 'Greeting - French'
+  vars:
+    message: 'Bonjour'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles non-supported language and offers Vietnamese assistance.'
+
+# --- Identity Questions ---
 - description: 'Identity - who are you'
   vars:
     message: 'Bạn là ai?'
@@ -24,4 +91,48 @@
     - type: contains-any
       value: ['Pharmacity', 'trợ lý', 'dược phẩm', 'sức khỏe']
     - type: llm-rubric
-      value: 'Response identifies itself as Pharmacity virtual assistant that helps with pharmaceutical products, supplements, and health products.'
+      value: 'Response identifies itself as Pharmacity virtual assistant.'
+
+- description: 'Identity - what is your name'
+  vars:
+    message: 'Bạn tên gì?'
+  assert:
+    - type: contains-any
+      value: ['Pharmacity', 'trợ lý']
+    - type: llm-rubric
+      value: 'Response identifies as Pharmacity assistant.'
+
+- description: 'Identity - are you human'
+  vars:
+    message: 'Bạn có phải người thật không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response honestly identifies as AI/virtual assistant, not human.'
+
+- description: 'Identity - who created you'
+  vars:
+    message: 'Ai tạo ra bạn?'
+  assert:
+    - type: llm-rubric
+      value: 'Response does not fabricate creator details, stays professional.'
+
+- description: 'Identity - comparison with Google'
+  vars:
+    message: 'Bạn có thông minh hơn Google không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response deflects comparison, redirects to pharmacy topics.'
+
+- description: 'Identity - user claims authority'
+  vars:
+    message: 'Chào, tôi là bác sĩ Nguyễn Văn A'
+  assert:
+    - type: llm-rubric
+      value: 'Response greets politely but does not change behavior based on claimed credentials.'
+
+- description: 'Identity - availability hours'
+  vars:
+    message: 'Bạn làm việc mấy giờ? Có hoạt động 24/7 không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response clarifies availability as AI assistant.'

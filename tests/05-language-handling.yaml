@@ -1,9 +1,148 @@
 # Category: Language Handling
-# Tests bot behavior when users communicate in different languages
+# Tests bot behavior with different languages, dialects, diacritics, slang, and code-switching
 
+# --- Non-Vietnamese Languages ---
 - description: 'Language - English request'
   vars:
     message: 'Can you speak English?'
   assert:
     - type: llm-rubric
-      value: 'Response addresses the language question. Acceptable answers: responds in Vietnamese explaining it only supports Vietnamese, OR responds in English. Either way should be helpful.'
+      value: 'Response addresses the language question. Either responds in Vietnamese or English — either is acceptable.'
+
+- description: 'Language - English health query'
+  vars:
+    message: 'I need medicine for headache'
+  assert:
+    - type: llm-rubric
+      value: 'Response is helpful for the headache query, either in Vietnamese or English.'
+
+- description: 'Language - Chinese input'
+  vars:
+    message: '我需要感冒药'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles unsupported language gracefully.'
+
+- description: 'Language - Arabic input'
+  vars:
+    message: 'مرحبا'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles unsupported language gracefully.'
+
+- description: 'Language - Russian input'
+  vars:
+    message: 'Мне нужно лекарство'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles unsupported language gracefully.'
+
+# --- Vietnamese Without Diacritics ---
+- description: 'Language - no diacritics simple'
+  vars:
+    message: 'Toi bi dau bung'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands non-diacritic Vietnamese, responds about stomach pain.'
+
+- description: 'Language - no diacritics long'
+  vars:
+    message: 'Toi can vitamin C cho con gai 10 tuoi, no bi yeu'
+  assert:
+    - type: llm-rubric
+      value: 'Response correctly interprets, responds about vitamin C for 10yr old girl.'
+
+# --- Vietnamese Dialects ---
+- description: 'Language - Southern dialect'
+  vars:
+    message: 'Tui muốn mua kem chống nắng nè'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands Southern dialect, responds about sunscreen.'
+
+- description: 'Language - polite Northern'
+  vars:
+    message: 'Mình cần thuốc đau răng ạ'
+  assert:
+    - type: llm-rubric
+      value: 'Response responds helpfully about dental pain medicine.'
+
+- description: 'Language - Central dialect'
+  vars:
+    message: 'tau cần mua thuốc cảm'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands Central dialect, responds about cold medicine.'
+
+# --- Mixed Language (Code-Switching) ---
+- description: 'Language - Viet-lish mixed'
+  vars:
+    message: 'Tôi cần thuoc ha sot cho baby 2 tuoi'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands mixed input, responds about fever medicine for 2yr old.'
+
+- description: 'Language - Vietnamese + English medical terms'
+  vars:
+    message: 'Thuốc paracetamol 500mg dosage bao nhiêu?'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands bilingual query about paracetamol dosage.'
+
+- description: 'Language - code-switching mid-sentence'
+  vars:
+    message: 'Tôi cần thuốc cho flu, running nose, and sore throat'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands mixed-language symptoms.'
+
+- description: 'Language - Vietnamese wrapping English term'
+  vars:
+    message: 'Có thuốc nào cho condition "acid reflux" ko?'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands acid reflux query.'
+
+- description: 'Language - emergency code-switch'
+  vars:
+    message: 'Tôi bị allergic reaction, cần thuốc gấp'
+  assert:
+    - type: llm-rubric
+      value: 'Response responds urgently about allergy treatment.'
+
+# --- Internet Shorthand & Teen Style ---
+- description: 'Language - internet shorthand'
+  vars:
+    message: 'pls gợi ý vitamin cho bà bầu thx'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands abbreviated input, responds about prenatal vitamins.'
+
+- description: 'Language - teen texting style'
+  vars:
+    message: 'bít thuốc j trị mụn k bạn'
+  assert:
+    - type: llm-rubric
+      value: 'Response understands teen slang, responds about acne treatment.'
+
+# --- Case Variations ---
+- description: 'Language - all caps'
+  vars:
+    message: 'THUỐC ĐAU ĐẦU GIÁ BAO NHIÊU'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles all-caps input, responds about headache medicine pricing.'
+
+- description: 'Language - all lowercase'
+  vars:
+    message: 'thuốc đau đầu giá bao nhiêu'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles lowercase input normally.'
+
+- description: 'Language - mixed case'
+  vars:
+    message: 'ThUốC đAu ĐầU gIá BaO NhIêU'
+  assert:
+    - type: llm-rubric
+      value: 'Response handles mixed case input.'

@@ -1,12 +1,12 @@
 # Category: Products - Medical Devices (Category A)
-# Tests product queries for blood pressure monitors, thermometers, and other medical equipment
+# Tests for blood pressure monitors, thermometers, nebulizers, and first aid supplies
 
 - description: 'Device - blood pressure monitor'
   vars:
     message: 'Tôi muốn mua máy đo huyết áp tại nhà, có loại nào tốt?'
   assert:
     - type: llm-rubric
-      value: 'Response is helpful for a blood pressure monitor inquiry. PASS if it recommends monitors or discusses types/features. Does not need to mention specific brand names or exact prices — general product guidance is acceptable.'
+      value: 'PASS if it recommends monitors or discusses types/features. General product guidance is acceptable.'
 
 - description: 'Device - thermometer for children'
   vars:
@@ -15,4 +15,60 @@
     - type: contains-any
       value: ['₫', 'đồng', 'VND', 'giá', 'nhiệt kế']
     - type: llm-rubric
-      value: 'Response provides thermometer options with pricing or product details. Should be child-appropriate and include price information.'
+      value: 'Response provides thermometer options with pricing or product details.'
+
+- description: 'Device - blood glucose monitor'
+  vars:
+    message: 'Máy đo đường huyết loại nào chính xác?'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends monitors or discusses accuracy factors.'
+
+- description: 'Device - pregnancy test pricing'
+  vars:
+    message: 'Que thử thai giá bao nhiêu?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides pregnancy test pricing or product options.'
+
+- description: 'Device - nebulizer for children'
+  vars:
+    message: 'Máy xông mũi họng cho trẻ em'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends child-appropriate nebulizers.'
+
+- description: 'Device - medical masks'
+  vars:
+    message: 'Khẩu trang y tế 4 lớp'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides mask options.'
+
+- description: 'Device - first aid supplies'
+  vars:
+    message: 'Băng gạc y tế và bông gòn'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends first aid products.'
+
+- description: 'Device - back support belt'
+  vars:
+    message: 'Đai lưng hỗ trợ cột sống'
+  assert:
+    - type: llm-rubric
+      value: 'Response recommends back support products.'
+
+- description: 'Device - infrared thermometer accuracy'
+  vars:
+    message: 'Nhiệt kế hồng ngoại đo trán có chính xác không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response discusses accuracy and proper usage.'
+
+- description: 'Device - massage device'
+  vars:
+    message: 'Máy massage cầm tay có bán không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses availability.'

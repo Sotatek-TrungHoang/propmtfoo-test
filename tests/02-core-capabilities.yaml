@@ -1,6 +1,7 @@
 # Category: Core Capabilities
-# Tests the bot's ability to describe its capabilities and handle basic pharmacy queries
+# Tests bot's ability to describe its features and handle service-related queries
 
+# --- Capability Description ---
 - description: 'Capabilities - list what bot can do'
   vars:
     message: 'Bạn có thể giúp tôi những gì?'
@@ -13,11 +14,124 @@
     message: 'Tôi bị đau đầu, có thuốc gì phù hợp không?'
   assert:
     - type: llm-rubric
-      value: 'Response provides helpful information about headache medicine or asks clarifying questions about symptoms. Should be relevant to pharmacy products.'
+      value: 'Response provides helpful information about headache medicine or asks clarifying questions. Should be relevant to pharmacy products.'
 
 - description: 'Capabilities - vitamin C supplement inquiry'
   vars:
     message: 'Cho tôi xem thực phẩm chức năng bổ sung vitamin C'
   assert:
     - type: llm-rubric
-      value: 'Response provides information about vitamin C supplements available or asks relevant follow-up questions. Should stay within pharmacy domain.'
+      value: 'Response provides information about vitamin C supplements or asks relevant follow-up questions. Should stay within pharmacy domain.'
+
+# --- Service Queries ---
+- description: 'Service - online ordering'
+  vars:
+    message: 'Tôi muốn đặt hàng online'
+  assert:
+    - type: llm-rubric
+      value: 'Response guides user on ordering process or provides relevant info about Pharmacity online.'
+
+- description: 'Service - delivery info'
+  vars:
+    message: 'Có giao hàng tận nhà không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides delivery info or directs to Pharmacity.vn.'
+
+- description: 'Service - order tracking'
+  vars:
+    message: 'Tôi muốn tra cứu đơn hàng'
+  assert:
+    - type: llm-rubric
+      value: 'Response explains order tracking process or limitations.'
+
+- description: 'Service - promotions'
+  vars:
+    message: 'Có chương trình khuyến mãi gì không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses promotion question, may redirect to website.'
+
+- description: 'Service - store locator'
+  vars:
+    message: 'Tôi muốn tìm cửa hàng Pharmacity gần nhất'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides store locator guidance or website redirect.'
+
+- description: 'Service - loyalty program'
+  vars:
+    message: 'Có thẻ thành viên Pharmacity không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses membership/loyalty program question.'
+
+- description: 'Service - return policy'
+  vars:
+    message: 'Tôi muốn đổi trả sản phẩm'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides return policy info or directs to customer service.'
+
+- description: 'Service - payment methods'
+  vars:
+    message: 'Thanh toán bằng MoMo được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses payment method question.'
+
+- description: 'Service - wholesale inquiry'
+  vars:
+    message: 'Có bán sỉ không? Tôi muốn mua số lượng lớn'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses wholesale question, may redirect.'
+
+- description: 'Service - bestsellers'
+  vars:
+    message: 'Cho tôi danh sách sản phẩm bán chạy nhất'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses product popularity question.'
+
+- description: 'Service - pharmacist consultation'
+  vars:
+    message: 'Có dịch vụ tư vấn dược sĩ online không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses pharmacist consultation availability.'
+
+- description: 'Service - product expiry'
+  vars:
+    message: 'Sản phẩm có hạn sử dụng bao lâu?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses expiry date question appropriately.'
+
+- description: 'Service - VAT invoice'
+  vars:
+    message: 'Có phát hành hóa đơn VAT không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response addresses billing/invoice question.'
+
+- description: 'Service - customer feedback'
+  vars:
+    message: 'Tôi muốn phản hồi về dịch vụ'
+  assert:
+    - type: llm-rubric
+      value: 'Response guides user on how to provide feedback.'
+
+- description: 'Service - teleconsultation boundary'
+  vars:
+    message: 'Bạn có thể gọi bác sĩ cho tôi không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response explains cannot connect to doctor directly, suggests alternatives.'
+
+- description: 'Service - diabetes comprehensive'
+  vars:
+    message: 'Tôi bị tiểu đường, cần tư vấn tổng thể'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides helpful diabetes-related product info, recommends doctor for disease management.'
