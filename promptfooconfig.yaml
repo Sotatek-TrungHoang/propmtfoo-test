@@ -17,6 +17,15 @@
 #     10-products-medical-devices.yaml
 #     11-products-prescription-boundary.yaml
 #     12-products-comparison-details.yaml
+#     13-safety-compliance.yaml
+#     14-conversation-quality.yaml
+#     15-vietnamese-cultural.yaml
+#     16-drug-interactions-safety.yaml
+#     17-pediatric-pregnancy-safety.yaml
+#     18-medical-triage-escalation.yaml
+#     19-herbal-products-authenticity.yaml
+#     20-chronic-disease-long-term-care.yaml
+#     21-multi-turn-conversations.yaml
 
 description: 'SotaAgents Pharmacity AI Assistant Evaluation'
 

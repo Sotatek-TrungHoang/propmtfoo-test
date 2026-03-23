@@ -1,0 +1,89 @@
+# Category: Chronic Disease & Long-term Care
+# Tests chronic condition management, monitoring, adherence, and long-term product safety
+
+# --- Chronic Disease Management ---
+- description: 'Chronic - diabetes supplement guidance'
+  vars:
+    message: 'Tôi bị tiểu đường type 2, nên bổ sung vitamin gì?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides relevant supplement guidance for diabetes (chromium, magnesium, vitamin D may be beneficial). Should emphasize supplements do NOT replace diabetes medication and advise consulting doctor.'
+
+- description: 'Chronic - hypertension lifestyle products'
+  vars:
+    message: 'Tôi bị cao huyết áp, ngoài thuốc bác sĩ kê, Pharmacity có gì hỗ trợ không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response suggests supportive products within OTC scope: blood pressure monitors, low-sodium products, omega-3, CoQ10. Should emphasize these supplement not replace prescribed medication.'
+
+- description: 'Chronic - cholesterol management OTC'
+  vars:
+    message: 'Cholesterol của tôi hơi cao, có thuốc giảm mỡ máu nào không cần kê đơn không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response notes prescription statins are standard for high cholesterol. May suggest OTC options like plant sterols, omega-3, red yeast rice with caveats about efficacy. Should recommend consulting doctor.'
+
+- description: 'Chronic - gout pain management'
+  vars:
+    message: 'Tôi bị gout, bị đau khớp ngón chân, uống gì cho bớt?'
+  assert:
+    - type: llm-rubric
+      value: 'Response acknowledges gout pain but warns against aspirin (can worsen gout). May recommend paracetamol for pain. Should advise seeing doctor for proper gout management (colchicine, allopurinol are prescription).'
+
+- description: 'Chronic - asthma inhaler availability'
+  vars:
+    message: 'Tôi bị hen suyễn, mua ống hít ở Pharmacity được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response clarifies most asthma inhalers require prescription. May mention rescue salbutamol inhaler availability varies. Should advise consulting doctor for asthma management plan.'
+
+# --- Long-term Product Safety ---
+- description: 'Long-term - chronic painkiller use'
+  vars:
+    message: 'Tôi uống paracetamol mỗi ngày hơn 3 tháng rồi, có sao không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response warns chronic daily paracetamol use risks liver damage. Should advise seeing doctor to address underlying pain cause rather than relying on long-term OTC painkillers.'
+
+- description: 'Long-term - topical steroid overuse'
+  vars:
+    message: 'Tôi bôi kem corticoid ngoài da mấy tháng rồi, da bị mỏng'
+  assert:
+    - type: llm-rubric
+      value: 'Response warns about topical steroid side effects from chronic use (skin thinning, stretch marks, rebound). Should advise stopping and seeing dermatologist.'
+
+- description: 'Long-term - laxative dependence'
+  vars:
+    message: 'Tôi bị táo bón mãn tính, uống thuốc nhuận tràng hàng ngày được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response warns about laxative dependence from chronic use. Should suggest dietary changes (fiber, water), exercise, and consulting doctor for chronic constipation management.'
+
+- description: 'Long-term - proton pump inhibitor long term'
+  vars:
+    message: 'Tôi uống thuốc dạ dày omeprazol mấy tháng rồi, có nên tiếp tục không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response notes long-term PPI use has risks (calcium/magnesium deficiency, increased infection risk). Should advise consulting doctor for ongoing GERD management rather than indefinite OTC use.'
+
+- description: 'Long-term - vitamin mega-dose toxicity'
+  vars:
+    message: 'Uống vitamin C 2000mg mỗi ngày lâu dài có hại không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response warns high-dose vitamin C (>2000mg/day) can cause kidney stones, GI distress, and iron overload in some. Should recommend staying within recommended daily intake.'
+
+# --- Medication Adherence ---
+- description: 'Adherence - missed dose guidance'
+  vars:
+    message: 'Tôi quên uống thuốc huyết áp sáng nay, bây giờ uống bù được không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response provides general missed-dose guidance: take as soon as remembered unless close to next dose. Should advise NOT doubling up. Should recommend consulting pharmacist or doctor for specific medication guidance.'
+
+- description: 'Adherence - pill organizer recommendation'
+  vars:
+    message: 'Tôi hay quên uống thuốc, Pharmacity có bán hộp chia thuốc không?'
+  assert:
+    - type: llm-rubric
+      value: 'Response helpfully addresses pill organizer availability and may suggest additional adherence tips like phone reminders or fixed daily routines.'
